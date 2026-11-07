@@ -4,3 +4,4 @@ valgrind-out.txt
 test.sh.log
 pyshtables.py
 venv/
+*.bin
