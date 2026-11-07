@@ -1,0 +1,23 @@
+From 2d4802172f8df34623c469618092a2a29fb31e10 Mon Sep 17 00:00:00 2001
+From: Aaron Pineda <apineda2014@gmail.com>
+Date: Sun, 11 Oct 2026 21:50:00 -0600
+Subject: [PATCH] Devtool add Scull and misc modules
+
+---
+ Makefile | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 7b08c49..c4f2e2e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,8 +1,5 @@
+ 
+-SUBDIRS =  misc-progs misc-modules \
+-           skull scull scullc scullp lddbus sculld scullv shortprint simple tty \
+-	   pci usb\
+-	   sbull snull short
++SUBDIRS =  misc-modules scull
+ 
+ all: subdirs
+ 
