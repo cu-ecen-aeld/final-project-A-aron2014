@@ -7,5 +7,5 @@ cd "${SCRIPT_DIR}"
 
 bitbake-setup init \
     --non-interactive \
-    "${SCRIPT_DIR}/bitbake-setup/yocto-assignments.conf.json" \
-    yocto-assignments
+    "${SCRIPT_DIR}/bitbake-setup/yocto-ros.conf.json" \
+    yocto-final-project
