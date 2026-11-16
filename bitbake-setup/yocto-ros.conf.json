@@ -50,7 +50,7 @@
             {
                 "name": "yocto-final-project",
                 "description": "CU AESD Yocto Final Project",
-                "setup-dir-name": "yocto-final-project-wrynose",
+                "setup-dir-name": "yocto-ros-final-project",
                 "top-dir-name": "build",
                 "bb-layers": [
                     "openembedded-core/meta",
@@ -62,7 +62,8 @@
 		            "meta-raspberrypi",
 		            "meta-ros/meta-ros-common",
 		            "meta-ros/meta-ros2",
-		            "meta-ros/meta-ros2-lyrical"
+                    "meta-aesd",
+                    "meta-lidar"
                 ],
                 "bb-layers-file-relative": [
                     "../meta-aesd",
@@ -70,9 +71,10 @@
                 ],
                 "oe-fragments": [
 		            "machine/raspberrypi4-64",
-                    "distro/poky",
+                    "distro/ros2",
                     "meta-aesd/rm-work",
                     "meta-lidar/rpi-uart",
+                    "meta-lidar/license-flags",
                     "meta-lidar/rm-work"
                 ],
                 "bb-env-passthrough-additions": [

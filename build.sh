@@ -1,14 +1,13 @@
 #!/bin/bash
-
 set -e
-
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+git submodule update --init --recursive
 
-INIT_ENV_SCRIPT="${SCRIPT_DIR}/bitbake-builds/yocto-assignments-wrynose/build/init-build-env"
-if [ ! -e ${INIT_ENV_SCRIPT} ]; then
-    ${SCRIPT_DIR}/setup.sh
-fi
+# must match "setup-dir-name" in bitbake-setup/yocto-ros.conf.json
+SETUP_DIR="${SCRIPT_DIR}/bitbake-builds/yocto-ros-final-project"
 
-source "${INIT_ENV_SCRIPT}"
+[ -e "${SETUP_DIR}/build/init-build-env" ] || "${SCRIPT_DIR}/setup.sh"
+source "${SETUP_DIR}/build/init-build-env"
 
-bitbake core-image-aesd
+bitbake aesd-lidar-image
