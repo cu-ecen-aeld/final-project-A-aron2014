@@ -16,7 +16,7 @@ SRC_URI = "git://github.com/cu-ecen-aeld/final-project-A-aron2014.git;protocol=h
 PV = "0.1.0+git"
 # Update to the final-project commit to build. It must include
 # aesd-lidar-module/tools/ (CMakeLists.txt builds tools/lidar_dump.c).
-SRCREV = "47efe19804661ffa6def6131534a814f922b07b4"
+SRCREV = "ee035d8aa602646ef93c3d8927199b35751e4377"
 
 # The ROS package is a subdirectory of the final-project repo.
 S = "${UNPACKDIR}/${BP}/aesd-lidar-module"
