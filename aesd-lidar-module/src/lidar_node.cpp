@@ -30,7 +30,7 @@ public:
   LidarNode()
   : Node("lidar_node")
   {
-    port_ = declare_parameter<std::string>("port", "/dev/ttyAMA0");
+    port_ = declare_parameter<std::string>("port", "/dev/ttyUSB0");
     frame_id_ = declare_parameter<std::string>("frame_id", "laser");
     const auto topic = declare_parameter<std::string>("topic", "scan");
     beams_ = declare_parameter<int>("beams", 500);

@@ -1,6 +1,6 @@
 lidar_node:
   ros__parameters:
-    port: /dev/ttyAMA0   # /dev/ttyUSB0 when using the kit's CP2102 adapter
+    port: /dev/ttyUSB0   # lidar USB (CP2102); /dev/ttyAMA0 for a GPIO UART
     frame_id: laser
     topic: scan
     beams: 500           # LaserScan resolution: 360 / 500 = 0.72 degrees per beam

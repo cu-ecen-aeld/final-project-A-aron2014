@@ -1,52 +1,32 @@
-# See https://git.yoctoproject.org/poky/tree/meta/files/common-licenses
+SUMMARY = "ROS 2 driver for the LDROBOT D500 (STL-19P) lidar"
+DESCRIPTION = "Serial reader thread, ring buffer, frame parser and LaserScan \
+publisher (lidar_node), plus the ROS-free lidar_dump test tool."
+
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
-# TODO: Set this  with the path to your assignments repo.  Use https protocol and a public
-# repo, or see assignment instructions for use with ssh keys
-SRC_URI = "git://github.com/cu-ecen-aeld/assignment-3-A-aron2014.git;protocol=https;nobranch=1"
+inherit ros_distro_lyrical
+inherit ros_component
 
-PV = "1.0+git"
-# TODO: set to reference a specific commit hash in your assignment repo
-SRCREV = "f0a5941a22afb70e3cb15246c083c40909e59c63"
+# ROS package name from package.xml. ros_component would otherwise derive
+# "aesd_lidar" from the recipe name, and the FILES paths would not match.
+ROS_BPN = "aesd_lidar_node"
 
-# TODO: Add the aesdsocket application and any other files you will install in do_install below
-# See https://github.com/openembedded/openembedded-core/blob/wrynose/meta/conf/bitbake.conf for path prefixes like ${bindir}
-# or ${sysconfdir}"
-FILES:${PN} += "${bindir}/aesdsocket"
-FILES:${PN} += "${sysconfdir}/init.d/aesdsocket-start-stop"
+SRC_URI = "git://github.com/cu-ecen-aeld/final-project-A-aron2014.git;protocol=https;branch=main"
+PV = "0.1.0+git"
+# Update to the final-project commit to build. It must include
+# aesd-lidar-module/tools/ (CMakeLists.txt builds tools/lidar_dump.c).
+SRCREV = "47efe19804661ffa6def6131534a814f922b07b4"
 
-# TODO: customize these as necessary for any libraries you need for your application
-TARGET_LDFLAGS += "-pthread -lrt"
+# The ROS package is a subdirectory of the final-project repo.
+S = "${UNPACKDIR}/${BP}/aesd-lidar-module"
 
-inherit update-rc.d
-INITSCRIPT_PACKAGES = "${PN}"
-INITSCRIPT_NAME:${PN} = "aesdsocket-start-stop"
+ROS_BUILD_DEPENDS = "rclcpp sensor-msgs"
+ROS_BUILDTOOL_DEPENDS = "ament-cmake-native"
+ROS_EXEC_DEPENDS = "rclcpp sensor-msgs launch launch-ros"
 
-do_configure () {
-	:
-}
+DEPENDS = "${ROS_BUILD_DEPENDS} ${ROS_BUILDTOOL_DEPENDS}"
+RDEPENDS:${PN} += "${ROS_EXEC_DEPENDS}"
 
-do_compile () {
-    # TODO: switch to the server directory where your source code to be built is located
-	oe_runmake -C ${S}/server
-}
-
-#TODO: add initscript necessary changes here
-
-do_install () {
-	# TODO: Install your binaries/scripts here.
-	# Be sure to install the target directory with install -d first
-	# Yocto variables ${D} and ${S} are useful here, which you can read about at 
-	# https://docs.yoctoproject.org/ref-manual/variables.html?highlight=workdir#term-D
-	# and
-	# https://docs.yoctoproject.org/ref-manual/variables.html?highlight=workdir#term-S
-	# See examples at https://github.com/cu-ecen-aeld/yocto-hello-world for your relevant build as well
-	# Remember to copy files relative to their location after building, which may be under the server subdirectory
-	install -d ${D}${bindir}
-	install -m 0755 ${S}/server/aesdsocket ${D}${bindir}
-
-	install -d ${D}${sysconfdir}/init.d
-	install -m 0755 ${S}/server/aesdsocket-start-stop ${D}${sysconfdir}/init.d
-
-}
+ROS_BUILD_TYPE = "ament_cmake"
+inherit ros_${ROS_BUILD_TYPE}
