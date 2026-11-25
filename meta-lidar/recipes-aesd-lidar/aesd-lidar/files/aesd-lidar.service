@@ -1,0 +1,21 @@
+[Unit]
+Description=AESD lidar ROS 2 node (publishes /scan)
+# DDS picks its network interfaces at startup: wait for eth0 so the host
+# can discover the node.
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+# ROS writes logs under $HOME/.ros; system services have no HOME by default.
+Environment=HOME=/root
+ExecStart=/bin/sh -c '. /opt/ros/lyrical/setup.sh && exec ros2 launch aesd_lidar_node lidar.launch.py'
+# The node exits if the port is missing or fails (lidar unplugged):
+# retry until it comes back.
+Restart=always
+RestartSec=2
+KillSignal=SIGINT
+TimeoutStopSec=10
+
+[Install]
+WantedBy=multi-user.target

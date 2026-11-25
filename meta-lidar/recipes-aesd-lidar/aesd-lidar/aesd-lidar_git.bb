@@ -30,3 +30,13 @@ RDEPENDS:${PN} += "${ROS_EXEC_DEPENDS}"
 
 ROS_BUILD_TYPE = "ament_cmake"
 inherit ros_${ROS_BUILD_TYPE}
+
+# Start the node at boot
+SRC_URI += "file://aesd-lidar.service"
+inherit systemd
+SYSTEMD_SERVICE:${PN} = "aesd-lidar.service"
+
+do_install:append() {
+    install -d ${D}${systemd_system_unitdir}
+    install -m 0644 ${UNPACKDIR}/aesd-lidar.service ${D}${systemd_system_unitdir}/
+}

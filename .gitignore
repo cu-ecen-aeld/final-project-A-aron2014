@@ -5,3 +5,9 @@ test.sh.log
 pyshtables.py
 venv/
 *.bin
+*.o
+*.ko
+*.mod
+*.mod.c
+modules.order
+Module.symvers

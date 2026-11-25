@@ -1,0 +1,17 @@
+#!/bin/sh
+
+case "$1" in 
+	start)
+		echo "Loading aesdlidar driver"
+		/usr/bin/aesdlidar_load
+		;;
+	stop)
+		echo "Unloading aesdlidar driver"
+		/usr/bin/aesdlidar_unload
+		;;
+	*)
+		echo "Usage: $0 {start|stop}"
+		exit 1
+		;;
+esac
+exit 0
